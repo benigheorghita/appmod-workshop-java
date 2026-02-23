@@ -1,9 +1,9 @@
 # Asset Manager
 
-This document serves as a comprehensive workshop guide that will walk you through the process of migrating a Java application to Azure using GitHub Copilot app modernization. The workshop covers assessment, Java/framework upgrades, migration to Azure services, containerization, and deployment.
+This document serves as a comprehensive workshop guide that will walk you through the process of modernizing a Java application using GitHub Copilot app modernization. The workshop covers assessment, Java/framework upgrades, health endpoints, and containerization.
 
 **What the modernization Process Will Do:**
-The modernization will transform your application from the outdated technologies to a modern Azure-native solution. This includes upgrading from Java 8 to Java 21, migrating from Spring Boot 2.x to 3.x, replacing AWS S3 with Azure Blob Storage, switching from RabbitMQ to Azure Service Bus, migrating to Azure Database for PostgreSQL, implementing managed identity authentication, adding health checks, containerizing the applications, and preparing them for cloud deployment with proper monitoring.
+The modernization will transform your application from the outdated technologies to a modern solution. This includes upgrading from Java 8 to Java 21, migrating from Spring Boot 2.x to 3.x, adding health checks, and containerizing the applications.
 
 ## Table of Contents
 
@@ -14,38 +14,25 @@ The modernization will transform your application from the outdated technologies
   - [Install GitHub Copilot app modernization](#install-github-copilot-app-modernization)
   - [Assess Your Java Application](#assess-your-java-application)
   - [Upgrade Runtime & Frameworks](#upgrade-runtime--frameworks)
-  - [Migrate to Azure Database for PostgreSQL Flexible Server using Predefined Tasks](#migrate-to-azure-database-for-postgresql-flexible-server-using-predefined-tasks)
-  - [Migrate to Azure Blob Storage using Predefined Tasks](#migrate-to-azure-blob-storage-using-predefined-tasks)
-  - [Migrate to Azure Service Bus using Predefined Tasks](#migrate-to-azure-service-bus-using-predefined-tasks)
   - [Expose health endpoints using Custom Tasks](#expose-health-endpoints-using-custom-tasks)
   - [Containerize Applications](#containerize-applications)
-  - [Deploy to Azure](#deploy-to-azure)
 
 ## Overview
 
-The [main](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/main/asset-manager) branch of the asset-manager project is the original state before being migrated to Azure services. It is organized as follows:
+The [main](https://github.com/copilot-dev-days/appmod-workshop-java/tree/main) branch of the asset-manager project is the original state before being modernized. It is organized as follows:
 * AWS S3 for image storage, using password-based authentication (access key/secret key)
 * RabbitMQ for message queuing, using password-based authentication
 * PostgreSQL database for metadata storage, using password-based authentication
 
-In this workshop, you will use the **GitHub Copilot app modernization** extension to assess, upgrade, migrate, and finally deploy the project to Azure.
+In this workshop, you will use the **GitHub Copilot app modernization** extension to assess, upgrade, and containerize the project.
 
 **Time Estimates:**
-The complete workshop takes approximately **2 hours** to complete. Here's the breakdown for each major step:
+The complete workshop takes approximately **35 minutes** to complete. Here's the breakdown for each major step:
 - **Assess Your Java Application**: ~5 minutes
 - **Upgrade Runtime & Frameworks**: ~10 minutes
-- **Migrate to Azure Database for PostgreSQL**: ~15 minutes
-- **Migrate to Azure Blob Storage**: ~15 minutes
-- **Migrate to Azure Service Bus**: ~15 minutes
 - **Expose Health Endpoints**: ~15 minutes
 - **Containerize Applications**: ~5 minutes
-- **Deploy to Azure**: ~40 minutes
 
-There are 3 branches we have prepared for you in case you have any problems with any steps in this workshop:
-* [main](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/main/asset-manager): The original state of the asset-manager application.
-* [workshop/java-upgrade](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/workshop/java-upgrade/asset-manager): The project state after assessment and Java upgrading steps.
-* [workshop/expected](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/workshop/expected/asset-manager): The project state after assessment, Java upgrading, and migration steps.
-* [workshop/deployment-expected](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/workshop/deployment-expected/asset-manager): The project state after containerization and deployment steps.
 
 ## Current Architecture
 ```mermaid
@@ -121,8 +108,8 @@ Password-based authentication
 Clone the repository and open the asset-manager folder to run the current project locally:
 
 ```bash
-git clone https://github.com/Azure-Samples/java-migration-copilot-samples.git
-cd java-migration-copilot-samples/asset-manager
+git clone https://github.com/copilot-dev-days/appmod-workshop-java.git
+cd appmod-workshop-java
 ```
 
 **Prerequisites**: 
@@ -201,31 +188,6 @@ The first step is to assess the sample Java application `asset-manager`. The ass
 
 > Note: The upgrading tool also supports upgrading to JDK 25 (the latest LTS version). To do this, click on the generated chat message, edit the target Java version to 25, and then click **Send** to apply the change.
 
-### Migrate to Azure Database for PostgreSQL Flexible Server using Predefined Tasks
-
-Then you can migrate the sample Java application `asset-manager` to Azure.
-
-> Note: We've set up a [workshop/java-upgrade](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/workshop/java-upgrade/asset-manager) branch where the Java upgrade has already been completed. Feel free to switch to this branch if you'd like to skip ahead and continue with the rest of the workshop.
-
-1. For this workshop, select **Migrate to Azure Database for PostgreSQL (Spring)** in the Solution list, then click **Run Task**.
-
-   ![Confirm Solution](doc-media/confirm-postgresql-solution.png)
-1. After clicking the **Run Task** button in the Assessment Report, the Copilot Chat panel will open with Agent Mode.
-1. The Copilot Agent will first analyze the project and generate a migration plan.
-1. After the plan is generated, Copilot Chat will stop with two generated files: **plan.md** and **progress.md**. If prompted, enter "Continue" or "Proceed" in the chat to confirm and execute the plan.
-1. When the code is migrated, the extension will prepare the **CVE Validation and Fixing** process. Click **Allow** to proceed.
-1. Review the proposed code changes and click **Keep** to apply them.
-
-### Migrate to Azure Blob Storage using Predefined Tasks
-
-1. Click the **Run Task** in the Assessment Report, on the right of the row `Storage Migration (AWS S3)` - `Migrate from AWS S3 to Azure Blob Storage`.
-1. The following steps are the same as the above PostgreSQL server migration.
-
-### Migrate to Azure Service Bus using Predefined Tasks
-
-1. Click the **Run Task** in the Assessment Report, on the right of the row `Messaging Service Migration (Spring AMQP RabbitMQ)` - `Migrate from RabbitMQ(AMQP) to Azure Service Bus`.
-1. The following steps are the same as the above PostgreSQL server migration.
-
 ### Expose health endpoints using Custom Tasks
 
 In this section, you will use custom tasks to expose health endpoints for your applications instead of writing code yourself. The following steps demonstrate how to generate custom tasks based on external web links and proper prompts.
@@ -248,8 +210,7 @@ In this section, you will use custom tasks to expose health endpoints for your a
 
 ### Containerize Applications
 
-Now that you have successfully migrated your Java application to use Azure services, the next step is to prepare it for cloud deployment by containerizing both the web and worker modules. In this section, you will use **Containerization Tasks** to containerize your migrated applications.
-> Note: If you encounter any issues with the previous migration step, you can directly proceed with the containerization step using the [workshop/expected](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/workshop/expected/asset-manager) branch.
+Now that you have completed the upgrade and health endpoint steps, the next step is to prepare your application for cloud deployment by containerizing both the web and worker modules. In this section, you will use **Containerization Tasks** to containerize your applications.
 
 1. Open the sidebar of `GITHUB COPILOT APP MODERNIZATION`. In **Tasks** view, click the **Run Task** button of **Java** -> **Containerization Tasks** -> **Containerize Application**.
   
@@ -263,40 +224,4 @@ Now that you have successfully migrated your Java application to use Azure servi
     <!-- ![Containerization execution steps](doc-media/containerization-execution-steps.png) -->
 1. Copilot Agent will help generate Dockerfile, build Docker images and fix build errors if there are any. Click **Keep** to apply the generated code.
 
-### Deploy to Azure
 
-At this point, you have successfully migrated the sample Java application `asset-manager` to Azure Database for PostgreSQL (Spring), Azure Blob Storage, and Azure Service Bus, and exposed health endpoints via Spring Boot Actuator. Now, you can start the deployment to Azure.
-> Note: If you encounter any issues with the previous migration step, you can directly proceed with the deployment step using the [workshop/expected](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/workshop/expected/asset-manager) branch.
-
-1. Open the sidebar of `GITHUB COPILOT APP MODERNIZATION`. In **Tasks** view, click the **Run Task** button of **Java** -> **Deployment Tasks** -> **Provision Infrastructure and Deploy to Azure**.
-
-    ![Run Deployment task](doc-media/deployment-run-task.png)
-1. A predefined prompt will be populated in the Copilot Chat panel with Agent Mode. The default hosting Azure service is Azure Container Apps.To change the hosting service to **Azure Kubernetes Service** (AKS), click on the prompt in the Copilot Chat panel and edit the last sentence of the prompt to **Hosting service: AKS**.
-
-    ![Deployment prompt](doc-media/deployment-prompt.png)
-1. Click ****Continue**/**Allow** if pop-up notifications to let Copilot Agent analyze the project and create a deployment plan in **plan.copilotmd** with Azure resources architecture, recommended Azure resources for project and security configurations, and execution steps for deployment.
-
-1. View the architecture diagram, resource configurations, and execution steps in the plan. Click **Keep** to save the plan and type in **Execute the plan** to start the deployment.
-
-    ![Deployment execute](doc-media/deployment-execute.png)
-1. When prompted, click **Continue**/**Allow** in chat notifications or type **y**/**yes** in terminal as Copilot Agent follows the plan and leverages agent tools to create and run provisioning and deployment scripts, fix potential errors, and finish the deployment. You can also check the deployment status in **progress.copilotmd**. **DO NOT interrupt** when provisioning or deployment scripts are running.
-
-    ![Deployment progress](doc-media/deployment-progress.png)
-
-> Note: If you encounter any issues with the deployment step, you can refer to the expected Copilot-generated deployment scripts in `/.azure` folder of the [workshop/deployment-expected](https://github.com/Azure-Samples/java-migration-copilot-samples/tree/workshop/deployment-expected/asset-manager) branch to compare your deployment scripts and troubleshoot the problems.
-
-#### Clean up
-
-When no longer needed, you can delete all related resources using the following scripts.
-
-Windows:
-```batch
-scripts\cleanup-azure-resources.cmd -ResourceGroupName <your resource group name>
-```
-
-Linux:
-```bash
-scripts/cleanup-azure-resources.sh -ResourceGroupName <your resource group name>
-```
-
-If you deploy the app using GitHub Codespaces, delete the Codespaces environment by navigating to your forked repository in GitHub and selecting **Code** > **Codespaces** > **Delete**.
