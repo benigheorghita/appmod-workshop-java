@@ -11,7 +11,7 @@ Use custom skills to expose health endpoints for your applications using Spring 
 
 1. In the Activity sidebar, open the **GitHub Copilot app modernization** extension pane. Hover over the **TASKS** section, and then select **Create a Custom Skill**.
 
-   ![Create Custom Skill](../doc-media/create-formula-from-source-control.png)
+   ![Create Custom Skill](../doc-media/create-skill.png)
 
 1. A **Create a Skill** form opens with the following fields. Fill them in as shown below:
    - **Skill Name**: `expose-health-endpoint`

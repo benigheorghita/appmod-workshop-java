@@ -6,7 +6,7 @@ Run the GitHub Copilot app modernization assessment on the `asset-manager` appli
 
 ## Run the Assessment
 
-1. Open VS Code with all the prerequisites installed for the asset manager by changing the directory to the `asset-manager` directory and running `code .` in that directory.
+1. Open VS Code with all the prerequisites installed for the asset manager by navigating to the root of the cloned repository and running `code .` in that directory.
 1. In the Activity sidebar, open the **GitHub Copilot app modernization** extension pane.
 1. In the **QUICKSTART** section, click **Start Assessment** to trigger the app assessment.
 

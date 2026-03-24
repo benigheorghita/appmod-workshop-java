@@ -10,7 +10,7 @@ Prepare your modernized application for cloud deployment by containerizing both 
 
     ![Run Containerize Application task](../doc-media/containerization-run-task.png)
 
-1. A predefined prompt will be populated in the Copilot Chat panel with Agent Mode. Copilot Agent will start to analyze the workspace and to create a **containerization-plan.copiotmd** with the containerization plan.
+1. A predefined prompt will be populated in the Copilot Chat panel with Agent Mode. Copilot Agent will start to analyze the workspace and to create a **containerization-plan.copilotmd** with the containerization plan.
 
     ![Containerization prompt and plan](../doc-media/containerization-plan.png)
 
