@@ -1,0 +1,24 @@
+# Maven and build outputs
+**/target
+**/.mvn
+
+# VCS and IDE
+.git
+.gitignore
+.idea
+.vscode
+
+# OS/editor artifacts
+**/.DS_Store
+**/Thumbs.db
+
+# Docs and workshop assets not needed for container builds
+docs
+doc-media
+workshop
+workshop-cli
+*.md
+PROMPTS*.md
+README*.md
+WORKSHOP*.md
+
